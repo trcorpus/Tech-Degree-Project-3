@@ -6,7 +6,7 @@ import sys
 
 
 def clear_screen():
-    """To clear the screen."""
+    """Clears the screen"""
     try:
       os.system('cls')
     except:
@@ -14,21 +14,21 @@ def clear_screen():
 
 
 def start_work_log():
-    """To start the app."""
+    """Starts the app"""
     clear_screen()
     greet_user()
     show_menu()
 
 
 def show_home_menu():
-    """This displays the main menu for the app."""
+    """Displays the main menu for the app."""
     clear_screen()
     greet_user()
     show_menu()
 
 
 def greet_user():
-    """Greet and welcome the user to the program."""
+    """Greet and welcome the user"""
     current_time = datetime.datetime.now()
     if current_time.hour < 12:
         print(" Good morning, and welcome to the Work Log System.\n")
@@ -39,7 +39,7 @@ def greet_user():
 
 
 def show_menu():
-    """A menu to choose to add a new entry or lookup previous entries."""
+    """A menu to choose whether to add a new entry or lookup previous entries."""
     while True:
         # clear_screen()
         print(" " + "-"*6 + " MENU " + "-"*6)
@@ -56,27 +56,27 @@ def show_menu():
                 show_previous_entries_menu()
                 break
             elif menu_option.upper() == 'Q':
-                input("\n Thank you for using the Work Log System! Press enter to quit. ")
+                input("\n Thank you, for using the Work Log System. Press enter to quit. ")
                 clear_screen()
                 sys.exit
                 break
         else:
-            input("\n That was an invalid option. Please choose from the menu. Enter either 'A', 'L', or 'Q', and press enter to continue... ")
+            input("\n Invalid option. Enter either 'A', 'L', or 'Q'. Press enter to continue... ")
             start_work_log()
             break
 
 
 def add_new_work_log():
-    """Ask the user for a task name, number of minutes spent working on the task,
-    and any additional notes they want on record for this entry."""
+    """Ask user for a task name, number of minutes spent working on task,
+    and any additional notes they want on record."""
     clear_screen()
     print(" " + "-"*6 + " Add New Work Log " + "-"*6)
-    print("\n Enter 'H' to go back. ")
+    print("\n Enter 'H' to go back now if you've changed your mind. ")
     while True:
-        task_name = input("\n What would you like to name the task? ").strip()
+        task_name = input("\n What's the name of the task? ").strip()
         # Check to see if task_name is not empty
         if not task_name:
-            input(" The task name can't be empty. Press enter to continue... ")
+            input(" Task name can't be empty. Press enter to continue... ")
             continue
         elif task_name.upper() == "H":
             show_home_menu()
@@ -88,22 +88,22 @@ def add_new_work_log():
     task_date = ask_for_date()
 
     while True:
-        have_remark = input("\n Do you have any comments for this task? [Y]es / [N]o ").strip()
+        have_remark = input("\n Do you have any remark on this task? [Y]es / [N]o ").strip()
         if have_remark.upper() in "YN":
             if have_remark.upper() == 'Y':
                 while True:
-                    task_remark = input("\n Add your comment: ").strip()
+                    task_remark = input("\n Add your remark: ").strip()
                     if task_remark:
                         break
                     else:
-                        input(" You said you had a comment. Press enter and add it... ")
+                        input(" You said you had a remark. Press enter and add it... ")
                         continue
                 break
             elif have_remark.upper() == 'N':
                 task_remark = "None"
                 break
         else:
-            input(" That was an invalid input. 'Y' for Yes and 'N' for No. Press enter to answer.")
+            input(" Invalid input. 'Y' for Yes and 'N' for No. Press enter to answer correctly.")
             continue
 
     show_entry_summary(task_name, task_duration, task_date, task_remark)
@@ -116,7 +116,7 @@ def ask_for_date():
         try:
             task_date = datetime.datetime.strptime(task_date, "%d-%m-%Y")
             if task_date.date() > datetime.datetime.today().date():
-                input(" Sorry, the date can't be later than today's date. Press enter and provide the correct date. ")
+                input(" Sorry, date can't be later than today's date. Press enter and provide a correct date ")
                 continue
         except ValueError:
             input(" Sorry, not a valid date. Press enter and provide a correct date... ")
@@ -131,7 +131,7 @@ def ask_for_duration():
     while True:
         duration = input("\n What's the duration? Format: hh:mm ").strip()
         if not re.match(r'^\d{1,2}:\d{2}$', duration):
-            input(" Invalid duration. Your duration must be in the format hh:mm. Press enter to continue... ")
+            input("Your duration must be in the format hh:mm. Press enter to continue... ")
             continue
         elif re.match(r'^\d{1,2}:\d{2}$', duration):
             splitted_duration = duration.split(':')
@@ -205,7 +205,7 @@ def show_previous_entries_menu():
                 show_home_menu()
                 break
         else:
-            input("\n That was an invalid input. Choose from the menu. Press enter to continue... ")
+            input("\n Invalid input. Choose from the menu. Press enter to continue... ")
             continue
 
 
@@ -214,7 +214,7 @@ def confirm_task_entry(task, duration, date, remark):
     while True:
         summary_response = input("\n [S]ave or [E]dit or [D]elete entries? ")
         if not summary_response:
-            input(" Please save with 'S' or edit with 'E'. Press enter to continue... ")
+            input(" Kindly save with 'S' or edit with 'E'. Press enter to continue... ")
             continue
         if summary_response.upper() not in "SDE":
             input("\n That was an invalid input. Press enter to continue... ")
@@ -238,7 +238,7 @@ def confirm_task_entry(task, duration, date, remark):
                         show_entry_summary(task, duration, date, remark)
                         break
                 else:
-                    input("\n That was an invalid input. Please use either 'Y' or 'N'. Press enter to continue... ")
+                    input("\n Invalid input. Please use either 'Y' or 'N'. Press enter to continue... ")
         elif summary_response.upper() == 'E':
             edit_entry(task, duration, date, remark)
             break
@@ -264,7 +264,7 @@ def edit_entry(task, duration, date, remark):
                     elif edit_response.upper() == "N":
                         break
                 else:
-                    input("\n That was an invalid input.'Y' for Yes and 'N' for No. Press enter to answer correctly.")
+                    input("\n Invalid input.'Y' for Yes and 'N' for No. Press enter to answer correctly.")
                     continue
         elif entry_item == entry_items[1]:
             while True:
@@ -280,7 +280,7 @@ def edit_entry(task, duration, date, remark):
                     elif edit_response.upper() == "N":
                         break
                 else:
-                    input("\n That was an invalid input.'Y' for Yes and 'N' for No. Press enter to answer correctly.")
+                    input("\n Invalid input.'Y' for Yes and 'N' for No. Press enter to answer correctly.")
                     continue
         elif entry_item == entry_items[2]:
             while True:
@@ -296,36 +296,37 @@ def edit_entry(task, duration, date, remark):
                     elif edit_response.upper() == "N":
                         break
                 else:
-                    input("\n That was an invalid input.'Y' for Yes and 'N' for No. Press enter to answer again.")
+                    input("\n Invalid input.'Y' for Yes and 'N' for No. Press enter to answer correctly.")
                     continue
         elif entry_item == entry_items[3]:
             while True:
                 clear_screen()
-                edit_response = input(" Would you like to edit the comment? [Y]es / [N]o? ").strip()
+                edit_response = input(" Would you like to edit the remark? [Y]es / [N]o? ").strip()
                 if edit_response.upper() in "YN":
                     if edit_response.upper() == "Y":
                         clear_screen()
-                        print(" " + "-"*3 + " Edit comment " + "-"*3)
-                        print("\n Current Comment: {}".format(remark))
+                        print(" " + "-"*3 + " Edit remark " + "-"*3)
+                        print("\n Current Remark: {}".format(remark))
                         edited_remark = input("\n Edit remark: ").strip()
                         if edited_remark:
                             remark = edited_remark
                             break
                         else:
-                            input("You didn't edit your comment. Press enter to continue... ")
+                            input("You didn't edit your remark. Press enter to continue... ")
                             break
                     elif edit_response.upper() == "N":
                         break
                 else:
-                    input("\n That was an invalid input.'Y' for Yes and 'N' for No. Press enter to answer again.")
+                    input("\n Invalid input.'Y' for Yes and 'N' for No. Press enter to answer correctly.")
                     continue
     show_entry_summary(task, duration, date, remark)
 
 
 def save_entry(task, duration, date, remark):
+    """Saves user entry to a csv file."""
     clear_screen()
 
-    with open('work_log.csv', 'a', newline='') as csvfile:
+    with open('entries.csv', 'a', newline='') as csvfile:
         entry_fieldnames = ['Task name', 'Duration(minutes)', 'Notes', 'Date']
         filewriter = csv.DictWriter(csvfile, fieldnames=entry_fieldnames)
         filewriter.writerow({
@@ -340,7 +341,7 @@ def save_entry(task, duration, date, remark):
 
 def get_all_entries():
     """Reads all the logged entries."""
-    with open('work_log.csv', 'r') as csvfile:
+    with open('entries.csv', 'r') as csvfile:
         entry_fieldnames = ['Task name', 'Duration(minutes)', 'Notes', 'Date']
         file_reader = csv.DictReader(csvfile, fieldnames=entry_fieldnames)
         entries = list(file_reader)
@@ -378,10 +379,10 @@ def search_by_specific_date():
             input("\n Please enter a date. Press enter to continue... ")
             continue
         if not re.match(r'[0-9]{2}-[0-9]{2}-[0-9]{4}$', search_date):
-            input("\n That was an invalid date. Date must be in the dd-mm-yyyy format. Press enter to continue... ")
+            input("\n Invalid date. Date must be in the dd-mm-yyyy format. Press enter to continue... ")
             continue
         if search_date not in entry_dates:
-            input("\n Please enter valid date. Pick a date from above. Press enter to continue... ")
+            input("\n No entries found. Pick a date from the above. Press enter to continue... ")
             continue
         else:
             for entry in entries:
@@ -411,13 +412,13 @@ def search_by_date_range():
             show_previous_entries_menu()
             break
         if not re.match(r'[0-9]{2}-[0-9]{2}-[0-9]{4}\s?to\s?[0-9]{2}-[0-9]{2}-[0-9]{4}$', date_range):
-            input("\n That was an invalid date range. Date must be in the dd-mm-yyyy format. Press enter to continue... ")
+            input("\n Invalid date range. Date must be in the dd-mm-yyyy format. Press enter to continue... ")
             continue
         else:
             # Strip off spaces before and after the "to" after the split.
             date_range = [date.strip() for date in date_range.split("to")]
             if date_range[0] not in entry_dates or date_range[-1] not in entry_dates:
-                input("\n Sorry, the date range must be within the above dates. Press enter to continue... ")
+                input("\n Sorry, date range must be in within the above dates. Press enter to continue... ")
                 continue
             for entry_date in entry_dates:
                 if (entry_date >= date_range[0]) and (entry_date <= date_range[-1]):
@@ -458,7 +459,7 @@ def search_by_time():
             if (entry['Duration(minutes)'] == search_time):
                 searched_entries.append(entry)
         if not searched_entries:
-            input("\n Sorry, there is no task available within that duration. Press enter to continue... ")
+            input("\n Sorry, no task available with that duration. Press enter to continue... ")
             continue
         else:
             display_searched_results(searched_entries)
